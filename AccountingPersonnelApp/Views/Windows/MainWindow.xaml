@@ -23,11 +23,11 @@
             <TextBlock Text="Выборка" FontWeight="Bold"/>
             <StackPanel Style="{StaticResource spFilter}">
                 <TextBlock Text="Должность"/>
-                <ComboBox ItemsSource="{Binding Positions}" SelectedItem="{Binding SelectedPosition}"/>
+                <ComboBox x:Name="cbPositions" ItemsSource="{Binding Positions}"  SelectedItem="{Binding SelectedPosition}"/>
             </StackPanel>
             <StackPanel Style="{StaticResource spFilter}">
                 <TextBlock Text="Подразделение"/>
-                <ComboBox ItemsSource="{Binding Departments}" SelectedItem="{Binding SelectedDepartment}"/>
+                <ComboBox x:Name="cbDepartments" ItemsSource="{Binding Departments}" SelectedItem="{Binding SelectedDepartment}"/>
             </StackPanel>
         </StackPanel>
         <DockPanel>
@@ -36,7 +36,7 @@
                 <Button Content="Изменить" Margin="10" Command="{Binding EditEmployeeCommand}"/>
                 <Button Content="Удалить" Margin="10" Command="{Binding DeleteEmployeeCommand}"/>
         </StackPanel>
-            <ListView x:Name="employeeList" ItemsSource="{Binding Employees}" MaxWidth="800" HorizontalAlignment="Center">
+            <ListView x:Name="employeeList" ItemsSource="{Binding Employees}" Width="800" HorizontalAlignment="Center">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
