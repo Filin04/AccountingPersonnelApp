@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AccountingPersonnelApp"
         mc:Ignorable="d"
-        Title="EmployeeWindow" Height="500" Width="800"
+        Title="Сотрудник" Height="500" Width="800"
         WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style TargetType="TextBlock">
