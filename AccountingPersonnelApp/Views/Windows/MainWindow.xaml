@@ -13,28 +13,45 @@
         <Style TargetType="TextBox">
             <Setter Property="Margin" Value="8" />
         </Style>
+        <Style x:Key="spFilter" TargetType="StackPanel">
+            <Setter Property="Margin" Value="8" />
+            <Setter Property="Width" Value="200" />
+        </Style>
     </Window.Resources>
     <DockPanel>
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Content="Добавить" Margin="10" Click="Add_Click" />
-            <Button Content="Изменить" Margin="10" Click="Edit_Click"  />
-            <Button Content="Удалить" Margin="10" Click="Delete_Click"  />
+            <TextBlock Text="Выборка" FontWeight="Bold"/>
+            <StackPanel Style="{StaticResource spFilter}">
+                <TextBlock Text="Должность"/>
+                <ComboBox ItemsSource="{Binding Positions}" SelectedItem="{Binding SelectedPosition}"/>
+            </StackPanel>
+            <StackPanel Style="{StaticResource spFilter}">
+                <TextBlock Text="Подразделение"/>
+                <ComboBox ItemsSource="{Binding Departments}" SelectedItem="{Binding SelectedDepartment}"/>
+            </StackPanel>
         </StackPanel>
-        <ListView x:Name="employeeList" ItemsSource="{Binding}">
+        <DockPanel>
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Content="Добавить" Margin="10" Command="{Binding AddEmployeeCommand}"/>
+                <Button Content="Изменить" Margin="10" Command="{Binding EditEmployeeCommand}"/>
+                <Button Content="Удалить" Margin="10" Command="{Binding DeleteEmployeeCommand}"/>
+        </StackPanel>
+            <ListView x:Name="employeeList" ItemsSource="{Binding Employees}" MaxWidth="800" HorizontalAlignment="Center">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
                         <StackPanel>
-                            <TextBlock Text="{Binding FullName}" FontSize="16" />
+                            <TextBlock Text="{Binding FullName}" FontSize="18" />
+                            <TextBlock Text="{Binding Position}" FontSize="15" />
+                            <TextBlock Text="{Binding Department}" FontSize="15" />
                             <TextBlock Text="{Binding DateOfBirth}" FontSize="12" />
-                            <TextBlock Text="{Binding Gender}" FontSize="13" />
-                            <TextBlock Text="{Binding IdPosition}" FontSize="13" />
-                            <TextBlock Text="{Binding IdDepartment}" FontSize="13" />
+                            <TextBlock Text="{Binding Gender}" FontSize="12" />
                         </StackPanel>
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        </DockPanel>
     </DockPanel>
    
 </Window>
