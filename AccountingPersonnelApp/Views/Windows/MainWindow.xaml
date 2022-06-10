@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AccountingPersonnelApp"
         mc:Ignorable="d"
-        Title="Главное окно" Height="450" Width="830" WindowStartupLocation="CenterScreen">
+        Title="Главное окно" Height="450" Width="830" WindowStartupLocation="CenterScreen" Name="Window">
     <Window.Resources>
         <Style TargetType="TextBlock">
             <Setter Property="Margin" Value="8" />
@@ -30,26 +30,44 @@
             </StackPanel>
         </StackPanel>
         <DockPanel>
-        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Center">
+            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button Content="Добавить" Margin="10" Command="{Binding AddEmployeeCommand}"/>
                 <Button Content="Изменить" Margin="10" Command="{Binding EditEmployeeCommand}"/>
                 <Button Content="Удалить" Margin="10" Command="{Binding DeleteEmployeeCommand}"/>
-        </StackPanel>
-            <ListView x:Name="employeeList" SelectedItem="{Binding SelectedEmployee}" ItemsSource="{Binding Employees}" Width="800" HorizontalAlignment="Center">
-            <ListView.ItemTemplate>
-                <DataTemplate>
+            </StackPanel>
+            <ListView 
+                x:Name="employeeList" 
+                ItemsSource="{Binding Employees}" 
+                SelectedItem="{Binding SelectedEmployee}" 
+                Width="800" 
+                HorizontalAlignment="Center" 
+                VerticalContentAlignment="Center"
+                SelectionMode="Single">
+               
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <DockPanel Margin="0 0 0 10">
                     <StackPanel>
-                        <StackPanel>
-                            <TextBlock Text="{Binding FullName}" FontSize="18" />
-                            <TextBlock Text="{Binding Position}" FontSize="15" />
-                            <TextBlock Text="{Binding Department}" FontSize="15" />
-                                <TextBlock Text="{Binding DateOfBirth, StringFormat = dd-MM-yyyy}" FontSize="12" />
-                            <TextBlock Text="{Binding GenderName}" FontSize="12" />
-                        </StackPanel>
+                        <TextBlock FontSize="18" Text="{Binding FullName}"/>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Должность: "></TextBlock>
+                        <TextBlock Text="{Binding Position}"/>
                     </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                          <TextBlock Text="Подразделение: " Foreground="#5e5e5e"></TextBlock>
+                          <TextBlock Text="{Binding Department}" Foreground="#5e5e5e"/>
+                    </StackPanel>
+
+                          <TextBlock Text="{Binding DopInfo}" Foreground="#5e5e5e"/>
+                        
+                    </StackPanel>
+                    </DockPanel>
                 </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+                </ListView.ItemTemplate>
+            </ListView>
+
         </DockPanel>
     </DockPanel>
    

@@ -7,10 +7,11 @@ namespace AccountingPersonnelApp
     {
         public EmployeeWindowVM EmployeeVM { get; private set; }
 
-        public EmployeeWindow(Employee e)
+        public EmployeeWindow(Employee e, bool viewMode)
         {
             InitializeComponent();
-            EmployeeVM = new EmployeeWindowVM(e);
+
+            EmployeeVM = viewMode ? new EmployeeWindowViewingModeVM(e) : new EmployeeWindowVM(e);
             this.DataContext = EmployeeVM;
         }
 

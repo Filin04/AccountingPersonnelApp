@@ -1,5 +1,6 @@
 ﻿using AccountingPersonnelApp.Commands;
 using AccountingPersonnelApp.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data.Entity;
@@ -13,13 +14,10 @@ namespace AccountingPersonnelApp.ViewModels
     public class MainWindowVM : DependencyObject, INotifyPropertyChanged
     {
         ApplicationContext db;
-        RelayCommand addEmployeeCommand;
-        RelayCommand editEmployeeCommand;
-        RelayCommand deleteEmployeeCommand;
 
-        IEnumerable<EmployeeVM> employees { get;}
-        IEnumerable<Department> departments { get; set; }
-        IEnumerable<Position> positions { get; set; }
+        IEnumerable<EmployeeVM> employees { get; set; }
+        IEnumerable<Department> departments { get;}
+        IEnumerable<Position> positions { get;}
 
         EmployeeVM selectedEmployee;
 
@@ -34,7 +32,9 @@ namespace AccountingPersonnelApp.ViewModels
             positions = PositionList.Positions = db.Positions.Local.ToBindingList();
 
             db.Employees.Load();
-            employees = db.Employees.Local.ToBindingList().Select(s=>new EmployeeVM(s));
+            EmployeeList.Employees = db.Employees.Local.ToBindingList();
+
+            employees = EmployeeList.Employees.Select(s=>new EmployeeVM(s));
 
             Employees = CollectionViewSource.GetDefaultView(employees);
             Employees.Filter = FilterEmployees;
@@ -77,6 +77,7 @@ namespace AccountingPersonnelApp.ViewModels
         #endregion
 
         #region Command
+        RelayCommand addEmployeeCommand;
         public RelayCommand AddEmployeeCommand
         {
             get
@@ -84,17 +85,19 @@ namespace AccountingPersonnelApp.ViewModels
                 return addEmployeeCommand ??
                   (addEmployeeCommand = new RelayCommand((o) =>
                   {
-                      EmployeeWindow employeeWindow = new EmployeeWindow(new Employee());
+                      EmployeeWindow employeeWindow = new EmployeeWindow(new Employee(), false);
                       if (employeeWindow.ShowDialog() == true)
                       {
                           Employee employee = employeeWindow.EmployeeVM.Employee;
                           db.Employees.Add(employee);
                           db.SaveChanges();
+                          Employees.Refresh();
                       }
                   }));
             }
         }
 
+        RelayCommand editEmployeeCommand;
         public RelayCommand EditEmployeeCommand
         {
             get
@@ -114,7 +117,7 @@ namespace AccountingPersonnelApp.ViewModels
                                 Gender = SelectedEmployee.Employee.Gender,
                                 IdPosition = SelectedEmployee.Employee.IdPosition,
                                 IdDepartment = SelectedEmployee.Employee.IdDepartment
-                      });
+                      }, false);
                       if (employeeWindow.ShowDialog() == true)
                       {
                           SelectedEmployee.Employee = db.Employees.Find(employeeWindow.EmployeeVM.Employee.IdEmployee);
@@ -125,14 +128,52 @@ namespace AccountingPersonnelApp.ViewModels
                               SelectedEmployee.Employee.Gender = employeeWindow.EmployeeVM.Employee.Gender;
                               SelectedEmployee.Employee.IdPosition = employeeWindow.EmployeeVM.Employee.IdPosition;
                               SelectedEmployee.Employee.IdDepartment = employeeWindow.EmployeeVM.Employee.IdDepartment;
-                              db.Entry(SelectedEmployee).State = EntityState.Modified;
+                              db.Entry(SelectedEmployee.Employee).State = EntityState.Modified;
                               db.SaveChanges();
+                              Employees.Refresh();
                           }
                       }
                   }));
             }
         }
 
+        RelayCommand viewEmployeeCommand;
+        public RelayCommand ViewEmployeeCommand
+        {
+            get
+            {
+                return viewEmployeeCommand ??
+                  (viewEmployeeCommand = new RelayCommand((o) =>
+                  {
+                      if (SelectedEmployee == null)
+                      {
+                          return;
+                      }
+                      EmployeeWindow employeeWindow = new EmployeeWindow(new Employee
+                      {
+                          IdEmployee = SelectedEmployee.Employee.IdEmployee,
+                          FullName = SelectedEmployee.Employee.FullName,
+                          DateOfBirth = SelectedEmployee.Employee.DateOfBirth,
+                          Gender = SelectedEmployee.Employee.Gender,
+                          IdPosition = SelectedEmployee.Employee.IdPosition,
+                          IdDepartment = SelectedEmployee.Employee.IdDepartment
+                      }, true);
+                      if (employeeWindow.ShowDialog() == true)
+                      {
+                          SelectedEmployee.Employee = db.Employees.Find(employeeWindow.EmployeeVM.Employee.IdEmployee);
+                          if (SelectedEmployee != null)
+                          {
+                              SelectedEmployee.Employee.IdPosition = employeeWindow.EmployeeVM.Employee.IdPosition;
+                              db.Entry(SelectedEmployee.Employee).State = EntityState.Modified;
+                              db.SaveChanges();
+                              Employees.Refresh();
+                          }
+                      }
+                  }));
+            }
+        }
+
+        RelayCommand deleteEmployeeCommand;
         public RelayCommand DeleteEmployeeCommand
         {
             get
@@ -143,9 +184,12 @@ namespace AccountingPersonnelApp.ViewModels
                       if (SelectedEmployee == null) return; 
                       db.Employees.Remove(SelectedEmployee.Employee);
                       db.SaveChanges();
+                      Employees.Refresh();
+
                   }));
             }
         }
+        
         #endregion
 
 
@@ -177,6 +221,7 @@ namespace AccountingPersonnelApp.ViewModels
 
         public static readonly DependencyProperty EmployeesProperty =
             DependencyProperty.Register("Employees", typeof(ICollectionView), typeof(EmployeeVM), new PropertyMetadata(null));
+
 
         private bool FilterEmployees(object obj)
         {

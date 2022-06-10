@@ -7,7 +7,7 @@ namespace AccountingPersonnelApp.ViewModels
     {
         public EmployeeWindowVM(Employee e) : base(e)
         {
-            Employee = e;
+
         }
 
         public IEnumerable<Position> Positions
@@ -19,5 +19,7 @@ namespace AccountingPersonnelApp.ViewModels
         {
             get => DepartmentList.Departments;
         }
+
+        public string[] Genders{ get; } = { "Мужской", "Женский" };
     }
 }

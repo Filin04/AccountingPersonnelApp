@@ -89,6 +89,7 @@
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Context\ApplicationContext.cs" />
     <Compile Include="Models\DepartmentList.cs" />
+    <Compile Include="Models\EmployeeList.cs" />
     <Compile Include="Models\Gender.cs" />
     <Compile Include="Models\PositionList.cs" />
     <Compile Include="ViewModels\EmployeeVM.cs" />
@@ -99,6 +100,7 @@
     </Compile>
     <Compile Include="Models\Department.cs" />
     <Compile Include="Models\Employee.cs" />
+    <Compile Include="ViewModels\EmployeeWindowViewingModeVM.cs" />
     <Compile Include="Views\Windows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

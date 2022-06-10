@@ -12,8 +12,8 @@ namespace AccountingPersonnelApp
         private string fullName;
         private string dateOfBirth;
         private int gender;
-        private int idPosition;
-        private int idDepartment;
+        private int idPosition = 4;
+        private int idDepartment = 1;
 
         [Key]
         public int IdEmployee { get => idEmployee; set => idEmployee = value; }

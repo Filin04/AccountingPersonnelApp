@@ -4,6 +4,8 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using AccountingPersonnelApp.Commands;
+
 
 namespace AccountingPersonnelApp.ViewModels
 {
@@ -45,19 +47,13 @@ namespace AccountingPersonnelApp.ViewModels
             }
         }
 
-        public bool gender
-        {
-            get => (int)Employee.Gender == 0 ? true  :false; 
-            set
-            {
-                Employee.Gender = value == true ? Gender.Man: Gender.Women;
-                OnPropertyChanged("Gender");
-            }
-        }
-
         public string GenderName
         {
             get => (int)Employee.Gender == 0 ? "Мужской" : "Женский";
+            set
+            {
+                Employee.Gender = value == "Мужской" ? Gender.Man : Gender.Women;
+            }
         }
 
         public Position Position
@@ -77,6 +73,39 @@ namespace AccountingPersonnelApp.ViewModels
             {
                 Employee.IdDepartment = value.IdDepartment;
                 OnPropertyChanged("Department");
+            }
+        }
+
+        public string DopInfo
+        {
+            get
+            {
+                switch (Position.IdPosition)
+                {
+                    case 1: break;
+                    case 2: break;
+                    case 3: break;
+                    case 4:
+                        var headFullName = EmployeeList.Employees.ToList().Where(s=> s.IdDepartment == Department.IdDepartment && s.IdPosition == 2).ToList();
+
+                        if(headFullName.Count == 1)
+                        {
+                            return $"Руководитель: {headFullName[0].FullName}";
+                        }
+                        else
+                        {
+                            string heads = "";
+                            for (int i = 0; i < headFullName.Count; i++)
+                            {
+                                heads += headFullName[i].FullName;
+                                heads += (i >= headFullName.Count-1) ? "" : ", ";
+                            }
+                            return $"Руководители: {heads}";
+                        }
+                    default:
+                        goto case 4;
+                }
+                return "";
             }
         }
 
