@@ -14,27 +14,53 @@
         <Style TargetType="TextBox">
             <Setter Property="Margin" Value="8" />
         </Style>
+        <Style TargetType="RadioButton">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0 0 30 0"/>
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="Width" Value="250"/>
+            <Setter Property="Height" Value="auto"/>
+            <Setter Property="Margin" Value="0 5 0 5"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
     </Window.Resources>
-    <DockPanel HorizontalAlignment="Stretch">
+    <DockPanel HorizontalAlignment="Stretch" Width="500" VerticalAlignment="Center">
         <StackPanel Margin="0 30 0 30" DockPanel.Dock="Bottom" Height="50" HorizontalAlignment="Center" Orientation="Horizontal">
             <Button IsDefault="True" Click="Accept_Click" MinWidth="60" Margin="5">OK</Button>
             <Button IsCancel="True" MinWidth="60" Margin="5">Отмена</Button>
         </StackPanel>
         <StackPanel>
-            <TextBlock Text="ФИО"></TextBlock>
-            <TextBox Text="{Binding FullName}"></TextBox>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="ФИО: "></TextBlock>
+                <TextBox Text="{Binding FullName}" Width="250"></TextBox>
+            </StackPanel>
 
-            <TextBlock Text="Дата рождения"></TextBlock>
-            <DatePicker SelectedDate="{Binding DateOfBirth}"></DatePicker>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Дата рождения: "></TextBlock>
+                <DatePicker VerticalContentAlignment="Center" SelectedDate="{Binding DateOfBirth}" Width="200"></DatePicker>
+            </StackPanel>
 
-            <TextBlock Text="Пол"></TextBlock>
-            <TextBox Text="{Binding Gender}"></TextBox>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Пол: "></TextBlock>
+                <RadioButton IsChecked="{Binding Gender}" GroupName="gender">
+                    <TextBlock Text="Мужской"/>
+                </RadioButton>
+                <RadioButton GroupName="gender">
+                    <TextBlock Text="Женский"/>
+                </RadioButton>
+            </StackPanel>
 
-            <TextBlock Text="Должность"></TextBlock>
-            <TextBox Text="{Binding IdPosition}"></TextBox>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Должность: " VerticalAlignment="Center"></TextBlock>
+                <ComboBox ItemsSource="{Binding Positions}" SelectedItem="{Binding Position}"></ComboBox>
+            </StackPanel>
 
-            <TextBlock Text="Подразделение"></TextBlock>
-            <TextBox Text="{Binding IdDepartment}"></TextBox>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Подразделение: " VerticalAlignment="Center"></TextBlock>
+                <ComboBox ItemsSource="{Binding Departments}" SelectedItem="{Binding Department}"></ComboBox>
+            </StackPanel>
         </StackPanel>
     </DockPanel>
 </Window>

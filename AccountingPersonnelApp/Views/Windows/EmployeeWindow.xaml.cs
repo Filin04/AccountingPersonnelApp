@@ -1,16 +1,17 @@
-﻿using System.Windows;
+﻿using AccountingPersonnelApp.ViewModels;
+using System.Windows;
 
 namespace AccountingPersonnelApp
 {
     public partial class EmployeeWindow : Window
     {
-        public Employee Employee { get; private set; }
+        public EmployeeWindowVM EmployeeVM { get; private set; }
 
         public EmployeeWindow(Employee e)
         {
             InitializeComponent();
-            Employee = e;
-            this.DataContext = Employee;
+            EmployeeVM = new EmployeeWindowVM(e);
+            this.DataContext = EmployeeVM;
         }
 
         private void Accept_Click(object sender, RoutedEventArgs e)

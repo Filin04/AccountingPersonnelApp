@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AccountingPersonnelApp.Models;
+using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.CompilerServices;
@@ -39,11 +40,12 @@ namespace AccountingPersonnelApp
                 OnPropertyChanged("DateOfBirth");
             }
         }
-        public int Gender
+        public Gender Gender
         {
-            get => gender; set
+            get => (Gender)gender; 
+            set
             {
-                gender = value;
+                gender = (int)value;
                 OnPropertyChanged("Gender");
             }
         }

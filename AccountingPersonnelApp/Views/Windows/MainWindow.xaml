@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AccountingPersonnelApp"
         mc:Ignorable="d"
-        Title="Главное окно" Height="450" Width="800" WindowStartupLocation="CenterScreen">
+        Title="Главное окно" Height="450" Width="830" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style TargetType="TextBlock">
             <Setter Property="Margin" Value="8" />
@@ -20,14 +20,13 @@
     </Window.Resources>
     <DockPanel>
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Center">
-            <TextBlock Text="Выборка" FontWeight="Bold"/>
             <StackPanel Style="{StaticResource spFilter}">
                 <TextBlock Text="Должность"/>
-                <ComboBox x:Name="cbPositions" ItemsSource="{Binding Positions}"  SelectedItem="{Binding SelectedPosition}"/>
+                <ComboBox x:Name="cbPositions" ItemsSource="{Binding Positions}"  SelectedItem="{Binding FilterEmployee, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
             <StackPanel Style="{StaticResource spFilter}">
                 <TextBlock Text="Подразделение"/>
-                <ComboBox x:Name="cbDepartments" ItemsSource="{Binding Departments}" SelectedItem="{Binding SelectedDepartment}"/>
+                <ComboBox x:Name="cbDepartments" ItemsSource="{Binding Departments}" SelectedItem="{Binding FilterEmployee, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
         </StackPanel>
         <DockPanel>
@@ -36,7 +35,7 @@
                 <Button Content="Изменить" Margin="10" Command="{Binding EditEmployeeCommand}"/>
                 <Button Content="Удалить" Margin="10" Command="{Binding DeleteEmployeeCommand}"/>
         </StackPanel>
-            <ListView x:Name="employeeList" ItemsSource="{Binding Employees}" Width="800" HorizontalAlignment="Center">
+            <ListView x:Name="employeeList" SelectedItem="{Binding SelectedEmployee}" ItemsSource="{Binding Employees}" Width="800" HorizontalAlignment="Center">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
@@ -44,8 +43,8 @@
                             <TextBlock Text="{Binding FullName}" FontSize="18" />
                             <TextBlock Text="{Binding Position}" FontSize="15" />
                             <TextBlock Text="{Binding Department}" FontSize="15" />
-                            <TextBlock Text="{Binding DateOfBirth}" FontSize="12" />
-                            <TextBlock Text="{Binding Gender}" FontSize="12" />
+                                <TextBlock Text="{Binding DateOfBirth, StringFormat = dd-MM-yyyy}" FontSize="12" />
+                            <TextBlock Text="{Binding GenderName}" FontSize="12" />
                         </StackPanel>
                     </StackPanel>
                 </DataTemplate>

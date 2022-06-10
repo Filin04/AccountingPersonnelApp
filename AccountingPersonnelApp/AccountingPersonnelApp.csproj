@@ -88,8 +88,11 @@
     </Compile>
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Context\ApplicationContext.cs" />
+    <Compile Include="Models\DepartmentList.cs" />
     <Compile Include="Models\Gender.cs" />
+    <Compile Include="Models\PositionList.cs" />
     <Compile Include="ViewModels\EmployeeVM.cs" />
+    <Compile Include="ViewModels\EmployeeWindowVM.cs" />
     <Compile Include="ViewModels\MainWindowVM.cs" />
     <Compile Include="Views\Windows\EmployeeWindow.xaml.cs">
       <DependentUpon>EmployeeWindow.xaml</DependentUpon>

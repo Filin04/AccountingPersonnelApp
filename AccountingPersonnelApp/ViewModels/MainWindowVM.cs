@@ -1,50 +1,46 @@
 ﻿using AccountingPersonnelApp.Commands;
+using AccountingPersonnelApp.Models;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data.Entity;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Windows;
+using System.Windows.Data;
 
 namespace AccountingPersonnelApp.ViewModels
 {
-    public class MainWindowVM : INotifyPropertyChanged
+    public class MainWindowVM : DependencyObject, INotifyPropertyChanged
     {
         ApplicationContext db;
         RelayCommand addEmployeeCommand;
         RelayCommand editEmployeeCommand;
         RelayCommand deleteEmployeeCommand;
 
-        IEnumerable<Employee> employees;
+        IEnumerable<EmployeeVM> employees { get;}
         IEnumerable<Department> departments { get; set; }
         IEnumerable<Position> positions { get; set; }
 
-        Employee selectedEmployee;
-        string selectedDepartment;
-        string selectedPosition;
+        EmployeeVM selectedEmployee;
 
         public MainWindowVM()
         {
             db = new ApplicationContext();
 
             db.Departments.LoadAsync();
-            departments = db.Departments.Local.ToBindingList();
+            departments = DepartmentList.Departments = db.Departments.Local.ToBindingList();
 
             db.Positions.LoadAsync();
-            positions = db.Positions.Local.ToBindingList();
+            positions = PositionList.Positions = db.Positions.Local.ToBindingList();
 
             db.Employees.Load();
-            Employees = db.Employees.Local.ToBindingList(); 
+            employees = db.Employees.Local.ToBindingList().Select(s=>new EmployeeVM(s));
+
+            Employees = CollectionViewSource.GetDefaultView(employees);
+            Employees.Filter = FilterEmployees;
         }
 
         #region fields
-        public IEnumerable<Employee> Employees
-        {
-            get => employees; set
-            {
-                employees = value;
-                OnPropertyChanged("Employees");
-            }
-        }
 
         public IEnumerable<string> Departments
         {
@@ -66,31 +62,16 @@ namespace AccountingPersonnelApp.ViewModels
             }
         }
 
-        public Employee SelectedEmployee
+        public EmployeeVM SelectedEmployee
         {
-            get => selectedEmployee; set
+            get => selectedEmployee; 
+            set
             {
                 if(value != null)
+                {
                     selectedEmployee = value;
+                }
                 OnPropertyChanged("SelectedEmployee");
-            }
-        }
-
-        public string SelectedDepartment
-        {
-            get => selectedDepartment; set
-            {
-                selectedDepartment = value;
-                OnPropertyChanged("SelectedDepartment");
-            }
-        }
-
-        public string SelectedPosition
-        {
-            get => selectedPosition; set
-            {
-                selectedPosition = value;
-                OnPropertyChanged("SelectedPosition");
             }
         }
         #endregion
@@ -106,7 +87,7 @@ namespace AccountingPersonnelApp.ViewModels
                       EmployeeWindow employeeWindow = new EmployeeWindow(new Employee());
                       if (employeeWindow.ShowDialog() == true)
                       {
-                          Employee employee = employeeWindow.Employee;
+                          Employee employee = employeeWindow.EmployeeVM.Employee;
                           db.Employees.Add(employee);
                           db.SaveChanges();
                       }
@@ -121,27 +102,29 @@ namespace AccountingPersonnelApp.ViewModels
                 return editEmployeeCommand ??
                   (editEmployeeCommand = new RelayCommand((o) =>
                   {
-                      if (SelectedEmployee == null) return;
-                      EmployeeWindow employeeWindow = new EmployeeWindow(new Employee
+                      if (SelectedEmployee == null)
                       {
-                          IdEmployee = SelectedEmployee.IdEmployee,
-                          FullName = SelectedEmployee.FullName,
-                          DateOfBirth = SelectedEmployee.DateOfBirth,
-                          Gender = SelectedEmployee.Gender,
-                          IdPosition = SelectedEmployee.IdPosition,
-                          IdDepartment = SelectedEmployee.IdDepartment
+                          return;
+                      }
+                      EmployeeWindow employeeWindow = new EmployeeWindow(new Employee
+                      { 
+                                IdEmployee = SelectedEmployee.Employee.IdEmployee,
+                                FullName = SelectedEmployee.Employee.FullName,
+                                DateOfBirth = SelectedEmployee.Employee.DateOfBirth,
+                                Gender = SelectedEmployee.Employee.Gender,
+                                IdPosition = SelectedEmployee.Employee.IdPosition,
+                                IdDepartment = SelectedEmployee.Employee.IdDepartment
                       });
-
                       if (employeeWindow.ShowDialog() == true)
                       {
-                          SelectedEmployee = db.Employees.Find(employeeWindow.Employee.IdEmployee);
+                          SelectedEmployee.Employee = db.Employees.Find(employeeWindow.EmployeeVM.Employee.IdEmployee);
                           if (SelectedEmployee != null)
                           {
-                              SelectedEmployee.FullName = employeeWindow.Employee.FullName;
-                              SelectedEmployee.DateOfBirth = employeeWindow.Employee.DateOfBirth;
-                              SelectedEmployee.Gender = employeeWindow.Employee.Gender;
-                              SelectedEmployee.IdPosition = employeeWindow.Employee.IdPosition;
-                              SelectedEmployee.IdDepartment = employeeWindow.Employee.IdDepartment;
+                              SelectedEmployee.Employee.FullName = employeeWindow.EmployeeVM.Employee.FullName;
+                              SelectedEmployee.Employee.DateOfBirth = employeeWindow.EmployeeVM.Employee.DateOfBirth;
+                              SelectedEmployee.Employee.Gender = employeeWindow.EmployeeVM.Employee.Gender;
+                              SelectedEmployee.Employee.IdPosition = employeeWindow.EmployeeVM.Employee.IdPosition;
+                              SelectedEmployee.Employee.IdDepartment = employeeWindow.EmployeeVM.Employee.IdDepartment;
                               db.Entry(SelectedEmployee).State = EntityState.Modified;
                               db.SaveChanges();
                           }
@@ -157,14 +140,55 @@ namespace AccountingPersonnelApp.ViewModels
                 return deleteEmployeeCommand ??
                   (deleteEmployeeCommand = new RelayCommand((o) =>
                   {
-                      if (SelectedEmployee == null) return;
-                      db.Employees.Remove(SelectedEmployee);
+                      if (SelectedEmployee == null) return; 
+                      db.Employees.Remove(SelectedEmployee.Employee);
                       db.SaveChanges();
                   }));
             }
         }
         #endregion
 
+
+        #region Filter
+        public string FilterEmployee
+        {
+            get { return (string)GetValue(FilterEmployeeProperty); }
+            set { SetValue(FilterEmployeeProperty, value); }
+        }
+
+        public static readonly DependencyProperty FilterEmployeeProperty =
+            DependencyProperty.Register("FilterEmployee", typeof(string), typeof(MainWindowVM), new PropertyMetadata("", Filter_Changed));
+
+        private static void Filter_Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var current = d as MainWindowVM;
+            if (current != null)
+            {
+                current.Employees.Filter = null;
+                current.Employees.Filter = current.FilterEmployees;
+            }
+        }
+
+        public ICollectionView Employees
+        {
+            get { return (ICollectionView)GetValue(EmployeesProperty); }
+            set { SetValue(EmployeesProperty, value); }
+        }
+
+        public static readonly DependencyProperty EmployeesProperty =
+            DependencyProperty.Register("Employees", typeof(ICollectionView), typeof(EmployeeVM), new PropertyMetadata(null));
+
+        private bool FilterEmployees(object obj)
+        {
+            bool result = true;
+            EmployeeVM current = obj as EmployeeVM;
+            if (FilterEmployee != "Выбрать все" && !string.IsNullOrWhiteSpace(FilterEmployee) && current != null && current.Position.ToString() != FilterEmployee && current.Department.ToString() != FilterEmployee)
+            {
+                result = false;
+            }
+            return result;
+        }
+        #endregion
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "")
