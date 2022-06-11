@@ -22,11 +22,11 @@
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Center">
             <StackPanel Style="{StaticResource spFilter}">
                 <TextBlock Text="Должность"/>
-                <ComboBox x:Name="cbPositions" ItemsSource="{Binding Positions}"  SelectedItem="{Binding FilterEmployee, UpdateSourceTrigger=PropertyChanged}"/>
+                <ComboBox x:Name="cbPositions" ItemsSource="{Binding Positions}"  SelectedItem="{Binding FilterPosition, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
             <StackPanel Style="{StaticResource spFilter}">
                 <TextBlock Text="Подразделение"/>
-                <ComboBox x:Name="cbDepartments" ItemsSource="{Binding Departments}" SelectedItem="{Binding FilterEmployee, UpdateSourceTrigger=PropertyChanged}"/>
+                <ComboBox x:Name="cbDepartments" ItemsSource="{Binding Departments}" SelectedItem="{Binding FilterDepartment, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
         </StackPanel>
         <DockPanel>
@@ -46,12 +46,15 @@
                
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <DockPanel Margin="0 0 0 10">
-                    <StackPanel>
-                        <TextBlock FontSize="18" Text="{Binding FullName}"/>
+                        <DockPanel Margin="0 0 0 10" HorizontalAlignment="Stretch">
+                            <DockPanel.InputBindings>
+                                <MouseBinding Gesture="LeftDoubleClick" Command="{Binding Path=DataContext.ViewEmployeeCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"/>
+                            </DockPanel.InputBindings>
+                            <StackPanel>
+                            <TextBlock FontSize="18" Text="{Binding FullName}"/>
 
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Должность: "></TextBlock>
+                            <StackPanel Orientation="Horizontal">
+                                  <TextBlock Text="Должность: "></TextBlock>
                         <TextBlock Text="{Binding Position}"/>
                     </StackPanel>
 

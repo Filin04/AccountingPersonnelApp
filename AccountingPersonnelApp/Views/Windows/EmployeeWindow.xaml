@@ -2,62 +2,131 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:typeitems="clr-namespace:AccountingPersonnelApp.ViewModels"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AccountingPersonnelApp"
         mc:Ignorable="d"
+        Name="window"
         Title="Сотрудник" Height="500" Width="800"
         WindowStartupLocation="CenterScreen">
     <Window.Resources>
-        <Style TargetType="TextBlock">
-            <Setter Property="Margin" Value="8" />
-            <Setter Property="VerticalAlignment" Value="Center"/>
-        </Style>
-        <Style TargetType="TextBox">
-            <Setter Property="Margin" Value="8" />
-            <Setter Property="HorizontalAlignment" Value="Left"/>
-        </Style>
-        <Style TargetType="ComboBox">
-            <Setter Property="Width" Value="250"/>
-            <Setter Property="Height" Value="auto"/>
-            <Setter Property="Margin" Value="10 5 0 5"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="HorizontalAlignment" Value="Left"/>
-        </Style>
+        <DataTemplate DataType="{x:Type typeitems:EmployeeWindowViewingModeVM}">
+            <DockPanel HorizontalAlignment="Stretch" Width="500" VerticalAlignment="Center">
+                <StackPanel Margin="0 30 0 30" DockPanel.Dock="Bottom" Height="50" HorizontalAlignment="Center" Orientation="Horizontal">
+                    <Button IsDefault="True" Command="{Binding AcceptCommand}" CommandParameter="{Binding ElementName=window}" MinWidth="60" Margin="5">OK</Button>
+                    <Button IsCancel="True" MinWidth="60" Margin="5">Отмена</Button>
+                </StackPanel>
+                <Grid Height="auto" HorizontalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.Resources>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Margin" Value="8" />
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                        </Style>
+                        <Style TargetType="TextBox">
+                            <Setter Property="Margin" Value="8" />
+                            <Setter Property="HorizontalAlignment" Value="Left"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                        </Style>
+                        <Style TargetType="ComboBox">
+                            <Setter Property="Width" Value="250"/>
+                            <Setter Property="Height" Value="auto"/>
+                            <Setter Property="Margin" Value="10 5 0 5"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="HorizontalAlignment" Value="Left"/>
+                        </Style>
+                    </Grid.Resources>
+
+                    <TextBlock Text="ФИО: " Grid.Column="0" Grid.Row="0"></TextBlock>
+                    <TextBlock Text="{Binding FullName}" Grid.Column="1" Grid.Row="0"></TextBlock>
+
+                    <TextBlock Text="Дата рождения: " Grid.Column="0" Grid.Row="1"></TextBlock>
+                    <TextBlock Text="{Binding DateOfBirth, StringFormat=dd.MM.yyyy}" Grid.Column="1" Grid.Row="1"></TextBlock>
+
+
+                    <TextBlock Text="Пол: " Grid.Column="0" Grid.Row="2"></TextBlock>
+                    <TextBlock Text="{Binding GenderName}" Grid.Column="1" Grid.Row="2"></TextBlock>
+
+                    <TextBlock Text="Должность: " Grid.Column="0" Grid.Row="3"></TextBlock>
+                    <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Horizontal">
+                        <TextBlock Text="{Binding Position, UpdateSourceTrigger=PropertyChanged}" ></TextBlock>
+                        <Button Height="25" Background="GreenYellow" Content=" + Повысить " Command="{Binding ViewEmployeeCommand}"/>
+                    </StackPanel>
+
+                    <TextBlock Text="Подразделение:" Grid.Column="0" Grid.Row="4"></TextBlock>
+                    <TextBlock Text="{Binding Department}" Grid.Column="1" Grid.Row="4"></TextBlock>
+
+                </Grid>
+            </DockPanel>
+        </DataTemplate>
+        
+        <DataTemplate DataType="{x:Type typeitems:EmployeeWindowVM}">
+            <DockPanel HorizontalAlignment="Stretch" Width="500" VerticalAlignment="Center">
+                <StackPanel Margin="0 30 0 30" DockPanel.Dock="Bottom" Height="50" HorizontalAlignment="Center" Orientation="Horizontal">
+                    <Button IsDefault="True" Command="{Binding AcceptCommand}" CommandParameter="{Binding ElementName=window}" MinWidth="60" Margin="5">OK</Button>
+                    <Button IsCancel="True" MinWidth="60" Margin="5">Отмена</Button>
+                </StackPanel>
+                <Grid Height="220">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.Resources>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Margin" Value="8" />
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                        </Style>
+                        <Style TargetType="TextBox">
+                            <Setter Property="Margin" Value="8" />
+                            <Setter Property="HorizontalAlignment" Value="Left"/>
+                            <Setter Property="VerticalContentAlignment" Value="Center"/>
+                        </Style>
+                        <Style TargetType="ComboBox">
+                            <Setter Property="Width" Value="250"/>
+                            <Setter Property="Height" Value="auto"/>
+                            <Setter Property="Margin" Value="10 5 0 5"/>
+                            <Setter Property="HorizontalAlignment" Value="Left"/>
+                            <Setter Property="VerticalContentAlignment" Value="Center"/>
+                        </Style>
+                    </Grid.Resources>
+
+                    <TextBlock Text="ФИО: " Grid.Column="0" Grid.Row="0"></TextBlock>
+                    <TextBox Text="{Binding FullName}" Width="250" Grid.Column="1" Grid.Row="0"></TextBox>
+
+                    <TextBlock Text="Дата рождения: " Grid.Column="0" Grid.Row="1"></TextBlock>
+                    <DatePicker  Height="auto" Margin="10 5 0 5" VerticalContentAlignment="Center" HorizontalAlignment="Left" DisplayDateStart="01.01.1900" SelectedDate="{Binding DateOfBirth}" Width="200" Grid.Column="1" Grid.Row="1"></DatePicker>
+
+
+                    <TextBlock Text="Пол: " Grid.Column="0" Grid.Row="2"></TextBlock>
+                    <ComboBox ItemsSource="{Binding Genders}" SelectedItem="{Binding GenderName}" Width="100" Grid.Column="1" Grid.Row="2"></ComboBox>
+
+                    <TextBlock Text="Должность: " Grid.Column="0" Grid.Row="3"></TextBlock>
+                    <ComboBox ItemsSource="{Binding Positions}" SelectedItem="{Binding Position}" Grid.Column="1" Grid.Row="3"></ComboBox>
+
+                    <TextBlock Text="Подразделение:" Grid.Column="0" Grid.Row="4"></TextBlock>
+                    <ComboBox ItemsSource="{Binding Departments}" SelectedItem="{Binding Department}" Grid.Column="1" Grid.Row="4"></ComboBox>
+
+                </Grid>
+            </DockPanel>
+        </DataTemplate>
+
     </Window.Resources>
-    <DockPanel HorizontalAlignment="Stretch" Width="500" VerticalAlignment="Center">
-        <StackPanel Margin="0 30 0 30" DockPanel.Dock="Bottom" Height="50" HorizontalAlignment="Center" Orientation="Horizontal">
-            <Button IsDefault="True" Click="Accept_Click" MinWidth="60" Margin="5">OK</Button>
-            <Button IsCancel="True" MinWidth="60" Margin="5">Отмена</Button>
-        </StackPanel>
-        <Grid Height="250">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            
-            <TextBlock Text="ФИО: " Grid.Column="0" Grid.Row="0"></TextBlock>
-            <TextBox Text="{Binding FullName}" Width="250" Grid.Column="1" Grid.Row="0"></TextBox>
-
-            <TextBlock Text="Дата рождения: " Grid.Column="0" Grid.Row="1"></TextBlock>
-            <DatePicker  Height="auto" Margin="10 5 0 5" VerticalContentAlignment="Center" HorizontalAlignment="Left" DisplayDateStart="01.01.1900" SelectedDate="{Binding DateOfBirth}" Width="200" Grid.Column="1" Grid.Row="1"></DatePicker>
-
-
-            <TextBlock Text="Пол: " Grid.Column="0" Grid.Row="2"></TextBlock>
-            <ComboBox ItemsSource="{Binding Genders}" SelectedItem="{Binding GenderName}" Width="100" Grid.Column="1" Grid.Row="2"></ComboBox>
-
-            <TextBlock Text="Должность: " Grid.Column="0" Grid.Row="3"></TextBlock>
-            <ComboBox ItemsSource="{Binding Positions}" SelectedItem="{Binding Position}" Grid.Column="1" Grid.Row="3"></ComboBox>
-
-            <TextBlock Text="Подразделение:" Grid.Column="0" Grid.Row="4"></TextBlock>
-            <ComboBox ItemsSource="{Binding Departments}" SelectedItem="{Binding Department}" Grid.Column="1" Grid.Row="4"></ComboBox>
-            
-        </Grid>
-    </DockPanel>
+    <ContentControl Content="{Binding}"/>
 </Window>

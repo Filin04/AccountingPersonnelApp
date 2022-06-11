@@ -189,19 +189,29 @@ namespace AccountingPersonnelApp.ViewModels
                   }));
             }
         }
-        
+
         #endregion
 
-
         #region Filter
-        public string FilterEmployee
+        public string FilterPosition
         {
             get { return (string)GetValue(FilterEmployeeProperty); }
             set { SetValue(FilterEmployeeProperty, value); }
         }
 
         public static readonly DependencyProperty FilterEmployeeProperty =
-            DependencyProperty.Register("FilterEmployee", typeof(string), typeof(MainWindowVM), new PropertyMetadata("", Filter_Changed));
+            DependencyProperty.Register("FilterPosition", typeof(string), typeof(MainWindowVM), new PropertyMetadata("", Filter_Changed));
+
+
+        public string FilterDepartment
+        {
+            get { return (string)GetValue(FilterDepartmentProperty); }
+            set { SetValue(FilterDepartmentProperty, value); }
+        }
+
+        public static readonly DependencyProperty FilterDepartmentProperty =
+            DependencyProperty.Register("FilterDepartment", typeof(string), typeof(MainWindowVM), new PropertyMetadata("", Filter_Changed));
+
 
         private static void Filter_Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -227,7 +237,17 @@ namespace AccountingPersonnelApp.ViewModels
         {
             bool result = true;
             EmployeeVM current = obj as EmployeeVM;
-            if (FilterEmployee != "Выбрать все" && !string.IsNullOrWhiteSpace(FilterEmployee) && current != null && current.Position.ToString() != FilterEmployee && current.Department.ToString() != FilterEmployee)
+            if (FilterDepartment != "Выбрать все" &&
+                !string.IsNullOrWhiteSpace(FilterDepartment) && 
+                current != null && 
+                current.Department.ToString() != FilterDepartment)
+            {
+                result = false;
+            }
+            if (FilterPosition != "Выбрать все" &&
+                !string.IsNullOrWhiteSpace(FilterPosition) &&
+                current != null &&
+                current.Position.ToString() != FilterPosition)
             {
                 result = false;
             }
