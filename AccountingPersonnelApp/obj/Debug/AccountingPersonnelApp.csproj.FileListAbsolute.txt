@@ -1,0 +1,55 @@
+C:\Users\timmi\Desktop\Тестовое задание\AccountingPersonnelApp\AccountingPersonnelApp\bin\Debug\staff.db
+C:\Users\timmi\Desktop\Тестовое задание\AccountingPersonnelApp\AccountingPersonnelApp\bin\Debug\AccountingPersonnelApp.exe.config
+C:\Users\timmi\Desktop\Тестовое задание\AccountingPersonnelApp\AccountingPersonnelApp\bin\Debug\AccountingPersonnelApp.exe
+C:\Users\timmi\Desktop\Тестовое задание\AccountingPersonnelApp\AccountingPersonnelApp\bin\Debug\AccountingPersonnelApp.pdb
+C:\Users\timmi\Desktop\Тестовое задание\AccountingPersonnelApp\AccountingPersonnelApp\bin\Debug\EntityFramework.dll
+C:\Users\timmi\Desktop\Тестовое задание\AccountingPersonnelApp\AccountingPersonnelApp\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\timmi\Desktop\Тестовое задание\AccountingPersonnelApp\AccountingPersonnelApp\bin\Debug\System.Data.SQLite.dll
+C:\Users\timmi\Desktop\Тестовое задание\AccountingPersonnelApp\AccountingPersonnelApp\bin\Debug\System.Data.SQLite.EF6.dll
+C:\Users\timmi\Desktop\Тестовое задание\AccountingPersonnelApp\AccountingPersonnelApp\bin\Debug\System.Data.SQLite.Linq.dll
+C:\Users\timmi\Desktop\Тестовое задание\AccountingPersonnelApp\AccountingPersonnelApp\bin\Debug\EntityFramework.xml
+C:\Users\timmi\Desktop\Тестовое задание\AccountingPersonnelApp\AccountingPersonnelApp\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\timmi\Desktop\Тестовое задание\AccountingPersonnelApp\AccountingPersonnelApp\bin\Debug\System.Data.SQLite.xml
+C:\Users\timmi\Desktop\Тестовое задание\AccountingPersonnelApp\AccountingPersonnelApp\obj\Debug\AccountingPersonnelApp.csproj.AssemblyReference.cache
+C:\Users\timmi\Desktop\Тестовое задание\AccountingPersonnelApp\AccountingPersonnelApp\obj\Debug\EmployeeWindow.g.cs
+C:\Users\timmi\Desktop\Тестовое задание\AccountingPersonnelApp\AccountingPersonnelApp\obj\Debug\MainWindow.g.cs
+C:\Users\timmi\Desktop\Тестовое задание\AccountingPersonnelApp\AccountingPersonnelApp\obj\Debug\App.g.cs
+C:\Users\timmi\Desktop\Тестовое задание\AccountingPersonnelApp\AccountingPersonnelApp\obj\Debug\AccountingPersonnelApp_MarkupCompile.cache
+C:\Users\timmi\Desktop\Тестовое задание\AccountingPersonnelApp\AccountingPersonnelApp\obj\Debug\AccountingPersonnelApp_MarkupCompile.lref
+C:\Users\timmi\Desktop\Тестовое задание\AccountingPersonnelApp\AccountingPersonnelApp\obj\Debug\EmployeeWindow.baml
+C:\Users\timmi\Desktop\Тестовое задание\AccountingPersonnelApp\AccountingPersonnelApp\obj\Debug\MainWindow.baml
+C:\Users\timmi\Desktop\Тестовое задание\AccountingPersonnelApp\AccountingPersonnelApp\obj\Debug\AccountingPersonnelApp.g.resources
+C:\Users\timmi\Desktop\Тестовое задание\AccountingPersonnelApp\AccountingPersonnelApp\obj\Debug\AccountingPersonnelApp.Properties.Resources.resources
+C:\Users\timmi\Desktop\Тестовое задание\AccountingPersonnelApp\AccountingPersonnelApp\obj\Debug\AccountingPersonnelApp.csproj.GenerateResource.cache
+C:\Users\timmi\Desktop\Тестовое задание\AccountingPersonnelApp\AccountingPersonnelApp\obj\Debug\AccountingPersonnelApp.csproj.CoreCompileInputs.cache
+C:\Users\timmi\Desktop\Тестовое задание\AccountingPersonnelApp\AccountingPersonnelApp\obj\Debug\AccountingPersonnelApp.csproj.CopyComplete
+C:\Users\timmi\Desktop\Тестовое задание\AccountingPersonnelApp\AccountingPersonnelApp\obj\Debug\AccountingPersonnelApp.exe
+C:\Users\timmi\Desktop\Тестовое задание\AccountingPersonnelApp\AccountingPersonnelApp\obj\Debug\AccountingPersonnelApp.pdb
+C:\Programming\TestTask\AccountingPersonnelApp\AccountingPersonnelApp\obj\Debug\AccountingPersonnelApp.exe
+C:\Programming\TestTask\AccountingPersonnelApp\AccountingPersonnelApp\obj\Debug\AccountingPersonnelApp.pdb
+C:\Programming\TestTask\AccountingPersonnelApp\AccountingPersonnelApp\bin\Debug\Models\staff.db
+C:\Programming\TestTask\AccountingPersonnelApp\AccountingPersonnelApp\bin\Debug\AccountingPersonnelApp.exe.config
+C:\Programming\TestTask\AccountingPersonnelApp\AccountingPersonnelApp\bin\Debug\AccountingPersonnelApp.exe
+C:\Programming\TestTask\AccountingPersonnelApp\AccountingPersonnelApp\bin\Debug\AccountingPersonnelApp.pdb
+C:\Programming\TestTask\AccountingPersonnelApp\AccountingPersonnelApp\bin\Debug\EntityFramework.dll
+C:\Programming\TestTask\AccountingPersonnelApp\AccountingPersonnelApp\bin\Debug\EntityFramework.SqlServer.dll
+C:\Programming\TestTask\AccountingPersonnelApp\AccountingPersonnelApp\bin\Debug\System.Data.SQLite.dll
+C:\Programming\TestTask\AccountingPersonnelApp\AccountingPersonnelApp\bin\Debug\System.Data.SQLite.EF6.dll
+C:\Programming\TestTask\AccountingPersonnelApp\AccountingPersonnelApp\bin\Debug\System.Data.SQLite.Linq.dll
+C:\Programming\TestTask\AccountingPersonnelApp\AccountingPersonnelApp\bin\Debug\EntityFramework.xml
+C:\Programming\TestTask\AccountingPersonnelApp\AccountingPersonnelApp\bin\Debug\EntityFramework.SqlServer.xml
+C:\Programming\TestTask\AccountingPersonnelApp\AccountingPersonnelApp\bin\Debug\System.Data.SQLite.xml
+C:\Programming\TestTask\AccountingPersonnelApp\AccountingPersonnelApp\obj\Debug\Views\Windows\EmployeeWindow.g.cs
+C:\Programming\TestTask\AccountingPersonnelApp\AccountingPersonnelApp\obj\Debug\Views\Windows\MainWindow.g.cs
+C:\Programming\TestTask\AccountingPersonnelApp\AccountingPersonnelApp\obj\Debug\App.g.cs
+C:\Programming\TestTask\AccountingPersonnelApp\AccountingPersonnelApp\obj\Debug\AccountingPersonnelApp_MarkupCompile.cache
+C:\Programming\TestTask\AccountingPersonnelApp\AccountingPersonnelApp\obj\Debug\AccountingPersonnelApp_MarkupCompile.lref
+C:\Programming\TestTask\AccountingPersonnelApp\AccountingPersonnelApp\obj\Debug\Views\Windows\EmployeeWindow.baml
+C:\Programming\TestTask\AccountingPersonnelApp\AccountingPersonnelApp\obj\Debug\Views\Windows\MainWindow.baml
+C:\Programming\TestTask\AccountingPersonnelApp\AccountingPersonnelApp\obj\Debug\AccountingPersonnelApp.g.resources
+C:\Programming\TestTask\AccountingPersonnelApp\AccountingPersonnelApp\obj\Debug\AccountingPersonnelApp.Properties.Resources.resources
+C:\Programming\TestTask\AccountingPersonnelApp\AccountingPersonnelApp\obj\Debug\AccountingPersonnelApp.csproj.GenerateResource.cache
+C:\Programming\TestTask\AccountingPersonnelApp\AccountingPersonnelApp\obj\Debug\AccountingPersonnelApp.csproj.CoreCompileInputs.cache
+C:\Programming\TestTask\AccountingPersonnelApp\AccountingPersonnelApp\obj\Debug\AccountingPersonnelApp.csproj.CopyComplete
+C:\Programming\TestTask\AccountingPersonnelApp\AccountingPersonnelApp\obj\Debug\AccountingPersonnelApp.csproj.AssemblyReference.cache
+C:\Programming\TestTask\AccountingPersonnelApp\AccountingPersonnelApp\obj\Debug\GeneratedInternalTypeHelper.g.cs
